@@ -1,0 +1,18 @@
+h1 {
+    text-align:center;
+    background-color:white;
+}
+
+#navbar {
+    background-color:#00FF00;
+    text-align:center;
+}
+
+#navbar > li {
+    background-color:#F6FF9A;
+    display:inline-block;
+    padding:3px;
+    border:2px solid black;
+    color: red;
+  /*  margin: 5px;*/
+}
