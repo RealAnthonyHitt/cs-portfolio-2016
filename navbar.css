@@ -17,6 +17,7 @@ h1 {
     color: red;
   /*  margin: 5px;*/
 }
-table {
-    background-color:gray;
-}
+ table, tr, td {
+         background-color:gray;
+            border: 3px solid black
+        }
