@@ -24,6 +24,11 @@ h1 {
 body {
     background-color:gray;
 }
-b {
-    color:White;
+input {
+    width:80px;
+    border-color:black;
+    border-width:2px;
+}
+text {
+    background-color:yellow;
 }

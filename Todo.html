@@ -6,24 +6,42 @@
 
     </head>
     <body>
-        <h2>To-Do lists</h2>
-        <style>
+        <h1>To do List</h1>
+         
+          8   <style>
         a {
             font-family:arial;
         }
-        
+        tr, td, table {
+            border: 3px solid black
+        }
+        p {
+            background-color: gray;
+            font-weight:bold;
+        }
     </style>
     
     <ul id="navbar">
-     <li><a href=index.html>About me</a> </li>
+    <li><a href=index.html>About me</a> </li>
     <li><a href="hardware.html"> Hardware</a> </li>
     <li><a href="howtohardware.html">How To...</a></li>
     <li><a href="Calc.html"> Calculator</a></li>
     <li><a href="Todo.html"> To-do list</a> </li>
+       <li><a href="HowTwo.html">How 2...</a></li>
     <li><a href="Vindinium.html"> Vindinium</a></li>
     <li><a href="BigProject.html"> Big project</a> </li>
     </ul>
-   
-    
+   <input type="text" id="textOne"/>
+    <button type="button" id="todoButton">Add</button>
+    <button type="button" id="deleteButton">Delete</button>
+   <select id="CssStylingDropdown">
+   <option>Please select an option</option>
+   <option value="Red">Red</option>
+   <option value="Blue">Blue</option>
+   <option value="Yellow">Yellow</option>
+    <option value="Green">Green</option>
+    </select>
+    <div id="todoDiv"></div>
+<script type="text/javascript" src="Todo.js"></script>
     </body>
 </html>
