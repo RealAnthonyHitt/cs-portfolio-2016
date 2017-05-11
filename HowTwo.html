@@ -33,18 +33,25 @@
     
     <table>
    <code>
-        
+        <pre>
         <tr><td>
        <p>Greetings Net-izen, this is the how-to page describing the construction of an HTML-CSS-Javascript Calculator. The calculator includes the basic operations of "addition," "subtraction," and so on, with even more.
        </p>
        </td>
        </tr>
-        <tr><td><pre>
+        <tr><td>
             
-        &lt;input type=&quot;text&quot; id=&quot;firstNumber&quot;&gt;
-        &lt;input type=&quot;text&quot; id=&quot;secondNumber&quot;&gt;
-        <p>These are the inputs, where one writes the numbers which the operators will do the math on(see below)</p>
+        &lt;input type=&quot;<mark>text</mark>&quot; id=&quot;<mark>firstNumber</mark>&quot;&gt;
+        &lt;input type=&quot;<mark>text</mark>&quot; id=&quot;<mark>secondNumber</mark>&quot;&gt;
+        <p>These are the inputs, where one writes the numbers which the operators will do the math on(see below). 
         
+        This is what the code would look like individually. Type something!</p>
+         <input type="text" id="firstNumber"/>
+          <input type="text" id="secondNumber"/>
+          </td>
+       </tr>
+       <tr>
+           <td>
     &lt;select id=&quot;mathTools&quot;&gt;
           &lt;option value=&quot;<b>+</b>&quot;&gt;+&lt;/option&gt;
           &lt;option value=&quot;<b>-</b>&quot;&gt;-&lt;/option&gt;
@@ -53,10 +60,40 @@
           &lt;option value=&quot;<b>^</b>&quot;&gt;^&lt;/option&gt;
           &lt;option value=&quot;<b>√</b>&quot;&gt;√&lt;/option&gt;
         &lt;/select&gt;
-        <p>This block of code is the dropdown, with all the operators, plus an exponential growth symbol and a square root symbol.</p>
+        <p>This block of code is the dropdown, with all the operators, plus an exponential growth symbol and a square root symbol. Total of six operators and an infinitely possible amount of equations.
+        
+        This is what the code would look like individually. Click it!</p>
+        <select id="mathTools">
+   <option value="+">+</option>
+    <option value="-">-</option>
+     <option value="*">*</option>
+      <option value="/">/</option>
+       <option value="^">^</option>
+        <option value="√">√</option>
+        </select>
+         <tr>
+            <td>
+                &lt;button type=&quot;<mark>button</mark>&quot; id=&quot;<mark>solveButton</mark>&gt; Click me for number!&lt;/button&gt;
+                 &lt;input type=&quot;<mark>text</mark>&quot; id=&quot;<mark>answer</mark>&quot;/&gt;
+                <p> This is the button to activate the calculator. After inputting two(or 1, in the case of √) numbers, and determining appropriate operator, the calculations would commence and you would get your answer. The answer will be written in a third input box(But do not write any numbers in it!).</p>
+               <button type="button" id="solveButton">Click me for number!</button>  <input type="text" id="answer"/>
+            </td>
+        
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    To conclude and clarify, the reason these boxes are not working is because I did not link the javascript to them. If you would like to see the actual calculator at work, check it out in the "Calculator" page above.
+                    
+                    So thank you for checking this out!
+                -Anthony</p>
+                <img
+            </td>
+        </tr>
         </pre>
         </td>
         </tr>
+    
         </code>
     </table>
 </html>

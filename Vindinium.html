@@ -6,9 +6,9 @@
 
     </head>
     <body>
-        <h1>Hardware</h1>
+        <h1>Vindinium</h1>
          
-          8   <style>
+           <style>
         a {
             font-family:arial;
         }
@@ -17,7 +17,6 @@
         }
         p {
             background-color: gray;
-            font-weight:bold;
         }
     </style>
     
@@ -31,8 +30,185 @@
     <li><a href="Vindinium.html"> Vindinium</a></li>
     <li><a href="BigProject.html"> Big project</a> </li>
     </ul>
-   
+   <code>
+       <pre>
+<p>Greetings again reader! This page is essentially just a "How to: Vindinium" and the page where I showcase my vindinium AI.</p>
+<table>
+    <tr><b>What is Vindinium?</b></tr>
+    <tr><td><img src="https://camo.githubusercontent.com/fbef31d9205dae9c3d8f816ef2979eebd33b7a53/68747470733a2f2f636c2e6c792f326d305a327a3051326133702f53637265656e25323053686f74253230323031362d31302d3038253230617425323032312e31322e33372e706e67" width="750" height="800"/></td>
+    </tr>
+    <tr>
+   <td><p>    Vindinium is a computer video game in which the user 
+ builds a robot completely out of a computer program to take part
+ in a Online-Multiplayer Turn Based RPG. To win, the user's robot 
+ must capture mines, which produce 1 gold per turn, in order to have 
+ the most gold at a pre-determined turn. As your robot claim mines, and 
+ as it moves around continuously, it loses health, so it must use 
+ the gold it collects to purchase drinks at taverns, which replenish health.
+ 
+ If the user's robot is killed in battle, (as the enemy robots will never pass an 
+ opportunity to smack each other,) the victor in the fight will claim every mine in 
+ the opponent's possession.
+ 
+ Many different programming languages are usable for Vindinium, but for the sake of School 
+ studies, <b>Javascript</b> would be used.</p> </td>
+    </tr>
+    <tr><td>
+        var Bot = require('bot');
+var PF = require('pathfinding');
+
+<mark>//Determines which robot, which arena, and which website your robot will be played upon.</mark>
+ var bot = new Bot('yx6qntl4', 'arena', 'http://vindinium.org'); 
+ // var bot = new Bot('8ge66bdg', 'arena', 'http://v.summitdevclub.com:9000'); 
+ // var bot = new Bot('042j6afi', 'arena', 'http://v.summitdevclub.com:9000');
+var goDir;
+var Promise = require('bluebird');
+Bot.prototype.botBrain = function() {
+    return new Promise(function(resolve, reject) {
+        _this = bot;
+        //////* Write your bot below Here *//////
+        //////* Set `myDir` in the direction you want to go and then bot.goDir is set to myDir at the bottom *////////
+
+        /*                                      *
+         * This Code is global data! Global Data is used to support the "What" part of the data with variables that             *
+         * Are organized but not primarily used to identify what is                                   */
+
+        <mark>// Set myDir to what you want and it will set bot.goDir to that direction at the end.  Unless it is "none"</mark>
+        var myDir;
+        var myPos = [bot.yourBot.pos.x, bot.yourBot.pos.y];
+<mark>//array to store the enemy bots in</mark>
+        var enemyBots = [];
+        if(bot.yourBot.id != 1) enemyBots.push(bot.bot1);
+        if(bot.yourBot.id != 2) enemyBots.push(bot.bot2);
+        if(bot.yourBot.id != 3) enemyBots.push(bot.bot3);
+        if(bot.yourBot.id != 4) enemyBots.push(bot.bot4);
+        
+<mark>//array to store the mines claimed by enemies</mark>
+        var enemyMines = [];
+        enemyMines = enemyMines.concat(enemyBots[0].mines);
+        enemyMines = enemyMines.concat(enemyBots[1].mines);
+        enemyMines = enemyMines.concat(enemyBots[2].mines);
+        
+       <mark> // Code to identify the location of AN UNCLAIMED MINE and store its location in a variable </mark>
+         var closestMine = bot.freeMines[0];
+            for(i = 0; i < bot.freeMines.length; i++) {
+                if(bot.findDistance(myPos, closestMine) > bot.findDistance(myPos, bot.freeMines[i])) {
+                    closestMine = bot.freeMines[i];
+                }
+            }
+           <mark> // Code to identify the location of A TAVERN and store its location in a variable</mark>
+        var closestTavern = bot.taverns[0];
+             for (var i = 0; i < bot.taverns.length; i++) {
+             if (bot.findDistance(myPos, closestTavern) > bot.findDistance(myPos, bot.taverns[i]) ){
+                closestTavern = bot.taverns[i];
+             }
+            }
+      <mark>  // Code to identify the location of AN ENEMY's MINE and store its location in a variable</mark>
+        var closestEnemyMine = enemyMines[0];
+            for(i = 0; i < enemyMines.length; i++) {
+                if (bot.findDistance(myPos, closestEnemyMine) > bot.findDistance(myPos, enemyMines[i]) ) {
+                    closestEnemyMine = enemyMines[i];
+                }
+            }
+            <mark>// Code to identify THE ENEMY WITH THE MOST MINES and store its location in a variable</mark>
+         var richestEnemyBot = enemyBots[0];
+             for(i = 0; i < enemyBots.length; i++) {
+                 if(richestEnemyBot.mines < enemyBots[1].mines) {
+                     richestEnemyBot = enemyBots[i];
+                 }
+             }
+        /*                                      *
+         * This Code Decides WHAT to do. When it decides what to do, the robot determines which task to based on the conditions provided.        *
+         *                                      */
+        
+        var task;
+       <mark>   //Separate tasks the vindinium bot does based on a certain condition. 
+        // It can go to taverns, steal enemy mines, and kill enemies. If it cant do any of those it takes any available mines. </mark>
+        if(bot.yourBot.life <= 70){
+            task = "tavern";
+        }
+         else if (bot.findDistance(myPos, richestEnemyBot.posArray) < 2) {
+            task = "killEnemy";
+        }
+        else if (bot.findDistance(myPos, closestEnemyMine) < 4) {
+            task = "stealmines";
+        }
+        else{
+            task = "freemines";
+        }
+
+      <mark>  /*                                      *
+         * This Code Determines HOW to do what the robot should do. This assigns actions to every single task from the "WHAT" section of this code.
+         The code sets the direction of the robot to the item identified in the tasks, thanks to a pathfinding plugin.  *
+         *                                      */
+</mark>
+      <mark> // This Code find the nearest freemine and sets myDir toward that direction </mark>
+        if(task === "freemines") {
+            console.log("Claiming a free mine!");
+            myDir = bot.findPath(myPos, closestMine);
+        }
+       <mark> // This Code finds the nearest tavern and sets myDir towards that direction</mark>
+         if (task === "tavern") {
+            console.log("Healing at a tavern!");
+            myDir = bot.findPath(myPos, closestTavern);
     
-    </body>
+        }
+        <mark>// This code finds the nearest enemy's mine and sets myDir towards that direction</mark>
+        if (task === "stealmines") {
+            console.log("My mine now!");
+            myDir = bot.findPath(myPos, closestEnemyMine);
+        }
+ 
+       <mark> // This code finds the nearest enemy and sets myDir towards that direction(to kill)</mark>
+        if (task === "killEnemy") {
+             console.log("Fat turkey hunting!");
+             myDir = bot.findpath(myPos, richestEnemyBot);
+        }
+        
+      <mark>  /*                                                                                                                              *
+         * This Code Sets your direction based on myDir.  If you are trying to go to a place that you can't reach, you move randomly.   *
+         * Otherwise you move in the direction set by your code.*/</mark>
+        if(myDir === "none") {
+            console.log("Going Random!");
+            var rand = Math.floor(Math.random() * 4);
+            var dirs = ["north", "south", "east", "west"];
+            bot.goDir = dirs[rand];
+        } else {
+            bot.goDir = myDir;
+        }
+        ///////////* Cannot touch anything below this line!!! *//////////////
+        resolve();
+    });
+};
+bot.runGame();
+</td>
+    </tr>
+    <tr>
+        <td>
+            <p>
+                The robot created above is capable of three specific functions: 
+                
+                This javascript code is purposed to the creation of a successful robot which can take part in all of the tasks listed in the code.
+                One of the most important pieces of programming knowledge I gained while creating this program is the array. 
+                The array is a type of variable(meaning storage) which organizes the statements used inside of brackets ( [] ). Without array codes 
+                in javascript, it would be far more difficult to create games which identify multiple locations or robots under a single variable without
+                losing organization.
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p>
+                To get the robot to move, you need to use the locations across the map chosen in the game for the robot to use its pathfinder plugin.
+                For example, there is an array within the code to identify the location of the closest enemy mine. There is also two if statements, one
+                to identify the task your robot should undertake, in which case is to walk towards enemy mines. The second if statement is for making the robot decide 
+                exactly which enemy mine to seize control of, in which case is the one that is closest. This can be applied to every other form of the pathfinding
+                necessary, such as the finding free mines and for killing enemies.
+            </p>
+        </td>
+    </tr>
+</table>
+   </pre>
+   </code>
     </body>
 </html>
